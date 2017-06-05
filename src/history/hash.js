@@ -60,7 +60,7 @@ export class HashHistory extends History {
 
 function checkFallback (base) {
   const location = getLocation(base)
-  if (!/^\/#/.test(location)) {
+  if (location && location != '' && !/^\/#/.test(location)) {
     window.location.replace(
       cleanPath(base + '/#' + location)
     )
@@ -91,7 +91,9 @@ function pushHash (path) {
 
 function replaceHash (path) {
   const i = window.location.href.indexOf('#')
-  window.location.replace(
-    window.location.href.slice(0, i >= 0 ? i : 0) + '#' + path
-  )
+  if (path.length > 1) {
+    window.location.replace(
+      window.location.href.slice(0, i >= 0 ? i : 0) + '#' + path
+    )
+  }
 }

@@ -1,5 +1,5 @@
 /**
-  * vue-router v2.5.3
+  * vue-router v2.5.3-a
   * (c) 2017 Evan You
   * @license MIT
   */
@@ -2168,7 +2168,7 @@ var HashHistory = (function (History$$1) {
 
 function checkFallback (base) {
   var location = getLocation(base);
-  if (!/^\/#/.test(location)) {
+  if (location && location != '' && !/^\/#/.test(location)) {
     window.location.replace(
       cleanPath(base + '/#' + location)
     );
@@ -2199,9 +2199,11 @@ function pushHash (path) {
 
 function replaceHash (path) {
   var i = window.location.href.indexOf('#');
-  window.location.replace(
-    window.location.href.slice(0, i >= 0 ? i : 0) + '#' + path
-  );
+  if (path.length > 1) {
+    window.location.replace(
+      window.location.href.slice(0, i >= 0 ? i : 0) + '#' + path
+    );
+  }
 }
 
 /*  */
@@ -2461,7 +2463,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '2.5.3';
+VueRouter.version = '2.5.3-a';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
